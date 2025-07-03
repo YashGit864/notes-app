@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import ModeEditRoundedIcon from '@mui/icons-material/ModeEditRounded';
 import {DeleteForeverRounded} from "@mui/icons-material";
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
@@ -16,13 +16,13 @@ function Note(props) {
     await axios.put(`http://localhost:3000/api/notes/${props.note.id}`, updatedNote);
     toast.success("Note updated");
     console.log(updatedNote)
-    props.fetchNotes(props.sortOrder);
+    props.fetchNotes();
   }
 
   async function deleteNote(){
     await axios.delete(`http://localhost:3000/api/notes/${props.note.id}`);
     toast.success("Note deleted");
-    props.fetchNotes(props.sortOrder);
+    props.fetchNotes();
   }
 
   return (

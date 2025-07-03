@@ -14,8 +14,8 @@ function CreateArea(props) {
 
   async function addNewNote(){
     await axios.post("http://localhost:3000/api/notes", newNote);
-    setNewNote({ title: "", content: "" });
-    setIsExpanded(false);
+    // setNewNote({ title: "", content: "" });
+    // setIsExpanded(false);
     toast.success("Note added successfully");
     props.fetchNotes(props.sortOrder);
   }
