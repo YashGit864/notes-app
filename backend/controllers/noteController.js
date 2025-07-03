@@ -1,19 +1,14 @@
 import db from '../config/db.js'
 
 export const getNotes = async (req, res) => {
-  const {sort} = req.query;
-  let order="";
-  if(sort === 'ascending')
-    order = "ORDER BY likes ASC";
-  else if(sort === 'descending')
-    order = "ORDER BY likes DESC";
-  else
-    order = "ORDER BY created_at DESC";
+  const {sortOrder, limit, offset} = req.query;
   try{
-    const notes = await db.query(`SELECT * FROM notes ${order}`);
-    res.status(200).json({success:true, data: notes.rows});
+    const notes = await db.query(`SELECT * FROM notes ORDER BY ${sortOrder} LIMIT ${limit} OFFSET ${offset}`);
+    const count = await db.query(`SELECT COUNT(*) FROM notes`);
+    console.log(`SELECT * FROM notes ORDER BY ${sortOrder} LIMIT ${limit} OFFSET ${offset}`)
+    res.status(200).json({success:true, data: notes.rows, count: count.rows[0].count});
   } catch (error) {
-    console.log("Error in getNotes function", error);
+    // console.log("Error in getNotes function", error);
     res.status(500).json({success: false, message: "Internal server error"});
   }
 }

@@ -12,6 +12,12 @@ body {
   padding: 0 16px;
 }
 
+.home {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 header {
   background-color: #f5ba13;
   margin: auto -16px;
